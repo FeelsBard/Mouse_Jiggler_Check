@@ -7,11 +7,11 @@ Add-Type -AssemblyName PresentationCore,PresentationFramework
 
 if ($null -eq $compname -or $compname -eq "" -or $compname -eq " ") {
     $computer = "."
-    $rptEndpoint = "Localhost"
+    $rptEndpoint = "localhost"
 } else {
     if ($compname -eq "localhost") {
         $computer = "."
-        $rptEndpoint = "Localhost"
+        $rptEndpoint = "localhost"
     } else {
         $computer = $compname
         $rptEndpoint = $computer
@@ -23,7 +23,7 @@ $ButtonType = [System.Windows.MessageBoxButton]::OK
 $MessageboxTitle = “ALERT”
 $MessageIcon = [System.Windows.MessageBoxImage]::Warning
 
-if ($compname = $env:COMPUTERNAME){
+if ($compname = $env:COMPUTERNAME -or $computer = "." -or $computer = "localhost"){
 $m1 = Invoke-Command -ScriptBlock {Get-Process -ErrorAction SilentlyContinue -processname "move mouse"} 
 $m2 = Invoke-Command -ScriptBlock {Get-Process -ErrorAction SilentlyContinue -ProcessName "automousemover"}
 $m3 = Invoke-Command -ScriptBlock {Get-Process -ErrorAction SilentlyContinue -ProcessName "caffeinated"}
